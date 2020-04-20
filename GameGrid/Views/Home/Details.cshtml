@@ -1,0 +1,652 @@
+﻿@model GameGrid.Models.Game
+
+@{
+    ViewBag.Title = "Game Grid - Details";
+}
+
+<h2>
+    @Html.DisplayFor(model => model.Name)
+</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.System)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.System)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Genre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Genre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Developer)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Developer)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Publisher)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Publisher)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateNA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateNA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DatePAL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatePAL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateJAP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateJAP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ESRB)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ESRB)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Region)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Region)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Artists)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Artists)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Composers)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Composers)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Directors)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Directors)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Producers)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Producers)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Programmers)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Programmers)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MRank)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MRank)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MReviews)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MReviews)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rank)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rank)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Reviews)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Reviews)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BoxPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BoxPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CompletePrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompletePrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GradedPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GradedPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LoosePrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LoosePrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ManualPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ManualPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NewPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NewPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ASIN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ASIN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EPID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EPID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Variants)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Variants)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiscCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiscCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AlsoOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AlsoOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PCID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PCID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NAID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NAID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UPC)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UPC)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Notes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Notes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SoldNA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoldNA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SoldPAL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoldPAL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SoldJAP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoldJAP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SoldRest)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoldRest)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SoldTotal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoldTotal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LengthMain)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LengthMain)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LengthMainExtras)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LengthMainExtras)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LengthComplete)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LengthComplete)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LengthAllPlayStyles)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LengthAllPlayStyles)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BoxText)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BoxText)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AltName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AltName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BuyPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BuyPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EstimatedValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstimatedValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Barcode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Barcode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cheats)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cheats)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Source)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Source)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Trivia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Trivia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Expansions)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Expansions)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Franchise)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Franchise)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rating)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rating)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RatingVotes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RatingVotes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Difficulty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Difficulty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DifficultyVotes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DifficultyVotes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Length)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Length)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LengthVotes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LengthVotes)
+        </dd>
+       
+        <dt>
+            @Html.DisplayNameFor(model => model.Story)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Story)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LocalPlayers)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LocalPlayers)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OnlinePlayers)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OnlinePlayers)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Coop)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Coop)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Modes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Modes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateString)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateString)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Deleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Deleted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Url)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Url)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UrlCoverProject)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UrlCoverProject)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UrlGameRankings)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UrlGameRankings)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UrlGameFaqs)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UrlGameFaqs)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UrlHowLongToBeat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UrlHowLongToBeat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UrlMetaCritic)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UrlMetaCritic)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UrlPriceCharts)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UrlPriceCharts)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UrlVGChartz)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UrlVGChartz)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UrlVGCollect)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UrlVGCollect)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UrlWikipedia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UrlWikipedia)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

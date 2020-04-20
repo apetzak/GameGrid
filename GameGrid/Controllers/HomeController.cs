@@ -10,24 +10,36 @@ namespace GameGrid.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            //Wikipedia.Scrape();
+            //var list = new Models.Master().GetList();
+            //Models.SQLConnector.Insert(list, "Master");
+
+            return View(Models.SQLConnector.LoadMaster());
         }
 
         public ActionResult About()
         {  
-
-
-
             ViewBag.Message = "Your application description page.";
 
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Details(string name)
         {
-            ViewBag.Message = "Your contact page.";
+            if (String.IsNullOrWhiteSpace(name))
+                return View(new Models.Game());
 
-            return View();
+            Models.Game game = Models.Game.LoadAll().Where(g => g.Name == name).First();
+            return View(game);
+        }
+
+        public ActionResult Edit(string name)
+        {
+            if (String.IsNullOrWhiteSpace(name))
+                return View(new Models.Game());
+
+            Models.Game game = Models.Game.LoadAll().Where(g => g.Name == name).First();
+            return View(game);
         }
     }
 }
