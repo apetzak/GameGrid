@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using HtmlAgilityPack;
-using GameGrid.Models;
+using System.Data.SqlClient;
 
-namespace GameGrid
+namespace GameGrid.Models
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public class HowLongToBeat : WebSource
+    public class HowLongToBeatScraper : WebScraper
     {
+        public static string UrlHome = "https://howlongtobeat.com/";
         public static string Url = "https://howlongtobeat.com/game.php?id=";
         public static List<int> failed = new List<int>();
         public static List<int> noSystem = new List<int>();
@@ -23,18 +21,19 @@ namespace GameGrid
                 Load(url);
                 if (url != web.ResponseUri.ToString())
                 {
-                    failed.Add(i); 
+                    failed.Add(i);
                     continue;
                 }
-                Game g = new Game(GetName());
+                HowLongToBeat g = new HowLongToBeat();
+                g.Name = GetName();
                 g.Url = i.ToString();
                 Update(g);
-                Games.Add(g);
+                games.Add(g);
             }
             Save("HowLongToBeat");
         }
 
-        public static void Update(Game g)
+        public static void Update(HowLongToBeat g)
         {
             GetTimes(g);
             GetAttributes(g);
@@ -43,15 +42,15 @@ namespace GameGrid
 
         private static string GetName()
         {
-            return Node("//*[@class='profile_header shadow_text']").InnerHtml.Replace("\n", "").TrimEnd();
+            return GetNode("//*[@class='profile_header shadow_text']").InnerHtml.Replace("\n", "").TrimEnd();
         }
 
-        public static void GetTimes(Game g)
+        public static void GetTimes(HowLongToBeat g)
         {
-            var node = Node("//*[@class='game_times']");
+            var node = GetNode("//*[@class='game_times']");
 
             if (node == null)
-                node = Node("//*[@class='game_times time_100']");
+                node = GetNode("//*[@class='game_times time_100']");
 
             if (node == null)
                 return;
@@ -68,26 +67,26 @@ namespace GameGrid
             g.LengthAllPlayStyles = GetTime(a[7]);
         }
 
-        public static double GetTime(string s)
+        public static decimal GetTime(string s)
         {
             if (s.Contains("--") || s == "")
                 return 0;
             if (s.Contains("Mins"))
-                return Math.Round(Convert.ToDouble(s.Replace("Mins", "")) / 60, 2);
-            return Convert.ToDouble(s);
-        } 
+                return Math.Round(Convert.ToDecimal(s.Replace("Mins", "")) / 60, 2);
+            return Convert.ToDecimal(s);
+        }
 
         public static string GetDescription()
         {
-            var node = Node("//*[@style='margin-bottom: 10px;']");
+            var node = GetNode("//*[@style='margin-bottom: 10px;']");
             if (node == null)
                 return null;
             return node.InnerText.TrimStart().TrimEnd('\n');
         }
 
-        public static void GetAttributes(Game g)
+        public static void GetAttributes(HowLongToBeat g)
         {
-            var nodes = Nodes("//*[@class='profile_info']"); 
+            var nodes = GetNodes("//*[@class='profile_info']");
             foreach (HtmlNode n in nodes)
             {
                 var a = n.InnerText.Replace("\n", "").TrimEnd().Split(':');
@@ -113,31 +112,11 @@ namespace GameGrid
 
         public static DateTime GetDate(string s)
         {
-            if (s.Length == 5 || s.Length == 6)           
+            if (s.Length == 5 || s.Length == 6)
                 return new DateTime(Convert.ToInt32(s.TrimStart()), 1, 1);
             if (s.StartsWith(" "))
                 return DateTime.MinValue;
             return Convert.ToDateTime(s);
-        }
-
-        public override Game GetGameFromReader(System.Data.SqlClient.SqlDataReader reader)
-        {
-            Game g = new Game(reader.GetString(0), reader.GetString(1))
-            {
-                LengthMain = Convert.ToDouble(reader.GetDecimal(2)),
-                LengthMainExtras = Convert.ToDouble(reader.GetDecimal(3)),
-                LengthComplete = Convert.ToDouble(reader.GetDecimal(4)),
-                LengthAllPlayStyles = Convert.ToDouble(reader.GetDecimal(5)),
-                Developer = reader.GetString(6),
-                Publisher = reader.GetString(7),
-                Description = reader.GetString(8),
-                Genre = reader.GetString(9),
-                DateNA = reader.GetDateTime(10),
-                DatePAL = reader.GetDateTime(11),
-                DateJAP = reader.GetDateTime(12),
-                UrlHowLongToBeat = reader.GetString(13)
-            };
-            return g;
         }
     }
 }

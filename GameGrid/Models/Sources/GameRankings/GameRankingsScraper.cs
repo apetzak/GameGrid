@@ -2,14 +2,11 @@
 using System.Collections.Generic;
 using HtmlAgilityPack;
 using System.Linq;
-using GameGrid.Models;
+using System.Data.SqlClient;
 
-namespace GameGrid
+namespace GameGrid.Models
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public class GameRankings : WebSource
+    public class GameRankingsScraper : WebScraper
     {
         public static string UrlHome = "http://www.gamerankings.com/";
         private static string GFUrl = "https://gamefaqs.gamespot.com";
@@ -18,9 +15,10 @@ namespace GameGrid
 
         public static Dictionary<string, string> SystemIDs()
 
-        {   var dict = new Dictionary<string, string>();
+        {
+            var dict = new Dictionary<string, string>();
             Load(UrlHome + "/browse.html");
-            var node = Node("//*[@name='site']");
+            var node = GetNode("//*[@name='site']");
             string[] arr = Remove(node.InnerHtml.Remove(0, 66), "<option value=", "</option>", ">").Split('\"');
             for (int i = 0; i < arr.Length; i += 2)
                 dict.Add(arr[i], arr[i + 1]);
@@ -36,7 +34,7 @@ namespace GameGrid
 
         public static bool NoResultsFound()
         {
-            foreach (HtmlNode n in Nodes("//div"))
+            foreach (HtmlNode n in GetNodes("//div"))
             {
                 if (n.InnerText.Contains("No results were found"))
                     return true;
@@ -56,7 +54,7 @@ namespace GameGrid
                     if (NoResultsFound())
                         break;
 
-                    var nodes = Nodes("//tr");
+                    var nodes = GetNodes("//tr");
                     foreach (HtmlNode n in nodes)
                     {
                         string cleanHtml = Remove(n.InnerHtml.Remove(0, n.InnerHtml.IndexOf("href") + 6),
@@ -70,7 +68,7 @@ namespace GameGrid
                             continue;
                         }
 
-                        Game g = new Game("");
+                        GameRankings g = new GameRankings();
                         g.Url = values[0];
                         if (!g.Url.Contains(pair.Key))
                             continue;
@@ -90,11 +88,11 @@ namespace GameGrid
 
                         if (!values[3].Contains("No Reviews") && !values[3].Contains("n/a"))
                         {
-                            g.Rank = Convert.ToDouble(values[3].Split('%')[0]);
+                            g.Rank = Convert.ToDecimal(values[3].Split('%')[0]);
                             g.Reviews = Convert.ToInt32(Remove(values[3], " Review", "s").Split('%')[1]);
                         }
 
-                        Games.Add(g);
+                        games.Add(g);
                     }
                 }
             }
@@ -102,17 +100,17 @@ namespace GameGrid
 
         public static void ScrapePages()
         {
-            foreach (Game g in Games)
-                Update(g);
+            foreach (GameRankings o in games)
+                Update(o);
         }
 
-        public static void Update(Game g)
+        public static void Update(GameRankings g)
         {
             Load(UrlHome + g.Url);
             if (UrlHome + "/" == web.ResponseUri.ToString())
                 return;
 
-            var node = Nodes("//div//div").Where(n => n.OuterHtml.Contains("id=\"content")).First();
+            var node = GetNodes("//div//div").Where(n => n.OuterHtml.Contains("id=\"content")).First();
             string html = node.InnerHtml;
             string text = node.InnerText;
 
@@ -140,7 +138,7 @@ namespace GameGrid
             return text.Remove(0, text.IndexOf(">") + 1).Replace("&#039;", "'");
         }
 
-        private static void GetDetails(Game g, string text)
+        private static void GetDetails(GameRankings g, string text)
         {
             string details = text.Remove(0, text.IndexOf("Description")).Replace("Description\r\n\t\r\n\t\t\r\n", "");
             if (details.Contains("Release Date:") && !details.Contains("Release Date: Canceled"))
@@ -148,7 +146,7 @@ namespace GameGrid
             g.Description = details.Remove(details.IndexOf("\t")).Replace("&quot;", "\"");
         }
 
-        private static void GetDate(Game g, string details)
+        private static void GetDate(GameRankings g, string details)
         {
             string date = details.Remove(0, details.IndexOf("Release Date"));
             date = date.Remove(date.IndexOf("\t"));
@@ -172,7 +170,7 @@ namespace GameGrid
             }
         }
 
-        private static void GetMetaCriticInfo(Game g, string html, string text)
+        private static void GetMetaCriticInfo(GameRankings g, string html, string text)
         {
             g.UrlMetaCritic = GetURL(html, MUrl);
             string s = text.Remove(0, text.IndexOf("MetaScore"));
@@ -187,26 +185,6 @@ namespace GameGrid
             html = html.Remove(0, html.IndexOf(baseUrl));
             html = html.Remove(html.IndexOf("class=") - 2).Replace(baseUrl, "");
             return html;
-        }
-
-        public override Game GetGameFromReader(System.Data.SqlClient.SqlDataReader reader)
-        {
-            Game g = new Game(reader.GetString(0), reader.GetString(1));
-            g.Developer = reader.GetString(2);
-            g.Genre = reader.GetString(3);
-            g.Year = reader.GetInt32(4);
-            g.Rank = Convert.ToDouble(reader.GetDecimal(5));
-            g.Reviews = reader.GetInt32(6);
-            g.Description = reader.GetString(7);
-            g.DateNA = reader.GetDateTime(8);
-            g.DatePAL = reader.GetDateTime(9);
-            g.DateJAP = reader.GetDateTime(10);
-            g.MRank = reader.GetInt32(11);
-            g.MReviews = reader.GetInt32(12);
-            g.UrlMetaCritic = reader.GetString(13);
-            g.UrlGameFaqs = reader.GetString(14);
-            g.UrlGameRankings = reader.GetString(15);
-            return g;
         }
     }
 }

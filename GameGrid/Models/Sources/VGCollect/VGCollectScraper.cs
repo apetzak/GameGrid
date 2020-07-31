@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 using HtmlAgilityPack;
-using GameGrid.Models;
 
-namespace GameGrid
+namespace GameGrid.Models
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public class VGCollect : WebSource
+    public class VGCollectScraper : WebScraper
     {
         public static string Url = "https://vgcollect.com/item/";
 
@@ -24,24 +19,25 @@ namespace GameGrid
             {
                 Load(Url + i);
 
-                var node = Node("//h1");
+                var node = GetNode("//h1");
                 if (node != null && node.InnerHtml == "404 Page Not Found")
                 {
                     notFound++;
                     continue;
                 }
 
-                Game g = new Game(Nodes("//h2")[0].InnerHtml);
-                g.Url = i.ToString();
+                VGCollect g = new VGCollect();
+                g.Name = GetNodes("//h2")[0].InnerHtml;
+                g.ID = i;
                 Update(g);
-                Games.Add(g);
+                games.Add(g);
             }
             Save("VGCollect");
         }
 
-        public static void Update(Game g)
+        public static void Update(VGCollect g)
         {
-            foreach (HtmlNode n in Nodes("//tbody//tr"))
+            foreach (HtmlNode n in GetNodes("//tbody//tr"))
             {
                 string text = n.InnerText.Replace("\r\n", "").Replace("  ", "");
 
@@ -65,7 +61,7 @@ namespace GameGrid
             SetRegion(g);
         }
 
-        public static void SetRegion(Game g)
+        public static void SetRegion(VGCollect g)
         {
             foreach (string s in new List<string> { " [US]", " [EU]", " [NA]", " [JP]" })
             {
@@ -77,7 +73,7 @@ namespace GameGrid
                 }
             }
         }
-         
+
         public static string GetText(string val, string text, string field)
         {
             if (text.Contains(field) && !text.EndsWith("NA"))
@@ -88,7 +84,7 @@ namespace GameGrid
         }
 
         public static int failedDates = 0;
-        public static DateTime GetDate(string s, Game g)
+        public static DateTime GetDate(string s, VGCollect g)
         {
             string text = s.Replace("Release Date:", "");
             try
@@ -110,33 +106,13 @@ namespace GameGrid
                 int month = Convert.ToDateTime(String.Format("{0}-{1}-{2}", day, text, year)).Month;
                 date = new DateTime(year, month, day);
                 return date;
-            }           
+            }
             catch
             {
                 failedDates++;
                 g.DateString = s.Replace("Release Date:", "");
                 return DateTime.MinValue;
             }
-        }
-
-        public override Game GetGameFromReader(System.Data.SqlClient.SqlDataReader reader)
-        {
-            Game g = new Game(reader.GetString(0), reader.GetString(1));
-            g.Genre = reader.GetString(2);
-            g.Developer = reader.GetString(3);
-            g.Publisher = reader.GetString(4);
-            g.Date = reader.GetDateTime(5);
-            g.Region = reader.GetString(6);
-            g.ESRB = reader.GetString(7);
-            g.BoxText = reader.GetString(8);
-            g.Description = reader.GetString(9);
-            g.AltName = reader.GetString(10);
-            g.BuyPrice = reader.GetString(11);
-            g.EstimatedValue = reader.GetString(12);
-            g.Barcode = reader.GetString(13);
-            g.ItemNumber = reader.GetString(14);
-            g.UrlVGCollect = reader.GetString(15);
-            return g;
         }
     }
 }

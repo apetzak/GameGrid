@@ -1,8 +1,23 @@
-﻿@model IEnumerable<GameGrid.Models.Game>
+﻿@model IEnumerable<GameGrid.Models.DBObject>
 
 @{
     ViewBag.Title = "Game Grid";
 }
+
+<select id="page">
+    <option value="Game">Game</option>
+    <option value="GameDetail">GameDetail</option>
+    <option value="GameRelease">GameRelease</option>
+    <option value="CoverProject">CoverProject</option>
+    <option value="CoverProjectCover">CoverProjectCover</option>
+    <option value="GameRankings">GameRankings</option>
+    <option value="HowLongToBeat">HowLongToBeat</option>
+    <option value="PriceCharting">PriceCharting</option>
+    <option value="VGChartz">VGChartz</option>
+    <option value="VGCollect">VGCollect</option>
+    <option value="Wikipedia">Wikipedia</option>
+    <option value="WikipediaDetail">WikipediaDetail</option>
+</select>
 
 <p> </p>
 
@@ -13,7 +28,7 @@
     }
 </style>
 
-@{ 
+@{
     object OnSearch()
     {
 
@@ -27,14 +42,6 @@
 
 <p> </p>
 
-@*<select id="columns" multiple>
-            <option value="Name">Name</option>
-            <option value="System">System</option>
-            <option value="Genre">Genre</option>
-            <option value="Developer">Developer</option>
-            <option value="Publisher">Publisher</option>
-    </select>*@
-
 <style>
     .grid {
         white-space: nowrap;
@@ -46,7 +53,12 @@
 <div class="grid">
 
     @{
-        Type type = new GameGrid.Models.Game().GetType();
+        Type type = null;
+        foreach (var item in Model)
+        {
+            type = item.GetType();
+            break;
+        }
 
         if (type != null)
         {
@@ -102,8 +114,8 @@
             }
 
             <td>
-                @Html.ActionLink("Details", "Details", new { name = item.Name }) |
-                @Html.ActionLink("Edit", "Edit", new { name = item.Name })
+                @Html.ActionLink("Details", "Details", new { name = type.GetProperty("Name").GetValue(item) }) |
+                @Html.ActionLink("Edit", "Edit", new { name = type.GetProperty("Name").GetValue(item) })
             </td>
         </tr>
     }

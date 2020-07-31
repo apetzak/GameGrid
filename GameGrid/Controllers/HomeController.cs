@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using GameGrid.Models;
 
 namespace GameGrid.Controllers
 {
@@ -10,11 +11,22 @@ namespace GameGrid.Controllers
     {
         public ActionResult Index()
         {
-            //Wikipedia.Scrape();
-            //var list = new Models.Master().GetList();
-            //Models.SQLConnector.Insert(list, "Master");
+            //var list3 = Models.SQLConnector.LoadTable(new CoverProjectCover());
+            //foreach (CoverProjectCover cpc in list3)
+            //{
+            //    if (String.IsNullOrEmpty(cpc.CreatedBy))
+            //    {
+            //        CoverProjectScraper.UpdateCover(cpc);
+            //        Models.SQLConnector.Update(cpc, "CoverID");
+            //    }
+            //}
 
-            return View(Models.SQLConnector.LoadMaster());
+            //WikipediaScraper.ScrapeLists();
+            //WikipediaScraper.Scrape();
+
+            //Models.Master.LoadAll();
+
+            return View(SQLConnector.LoadTable(new Game()));
         }
 
         public ActionResult About()
@@ -27,18 +39,18 @@ namespace GameGrid.Controllers
         public ActionResult Details(string name)
         {
             if (String.IsNullOrWhiteSpace(name))
-                return View(new Models.Game());
+                return View(new Game());
 
-            Models.Game game = Models.Game.LoadAll().Where(g => g.Name == name).First();
+            DBObject game = SQLConnector.LoadTable(new Game()).Where(g => (g as Game).Name == name).First();
             return View(game);
         }
 
         public ActionResult Edit(string name)
         {
             if (String.IsNullOrWhiteSpace(name))
-                return View(new Models.Game());
+                return View(new Game());
 
-            Models.Game game = Models.Game.LoadAll().Where(g => g.Name == name).First();
+            DBObject game = SQLConnector.LoadTable(new Game()).Where(g => (g as Game).Name == name).First();
             return View(game);
         }
     }

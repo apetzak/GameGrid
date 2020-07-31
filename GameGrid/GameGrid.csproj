@@ -127,17 +127,32 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Game.cs" />
+    <Compile Include="Models\Games\DBObject.cs" />
+    <Compile Include="Models\Sources\CoverProject\CoverProjectCover.cs" />
+    <Compile Include="Models\Sources\CoverProject\CoverProjectScraper.cs" />
+    <Compile Include="Models\Sources\GameFaqs\GameFaqsScraper.cs" />
+    <Compile Include="Models\Sources\GameRankings\GameRankingsScraper.cs" />
+    <Compile Include="Models\Sources\HowLongToBeat\HowLongToBeatScraper.cs" />
+    <Compile Include="Models\Sources\PriceCharting\PriceChartingScraper.cs" />
+    <Compile Include="Models\Sources\VGChartz\VGChartzScraper.cs" />
+    <Compile Include="Models\Sources\VGCollect\VGCollectScraper.cs" />
+    <Compile Include="Models\Sources\VGFacts\VGFacts.cs" />
+    <Compile Include="Models\Games\Game.cs" />
+    <Compile Include="Models\Games\GameDetail.cs" />
+    <Compile Include="Models\Games\GameRelease.cs" />
     <Compile Include="Models\Master.cs" />
-    <Compile Include="Models\Sources\CoverProject.cs" />
-    <Compile Include="Models\Sources\GameFaqs.cs" />
-    <Compile Include="Models\Sources\GameRankings.cs" />
-    <Compile Include="Models\Sources\HowLongToBeat.cs" />
-    <Compile Include="Models\Sources\PriceCharts.cs" />
-    <Compile Include="Models\Sources\VGChartz.cs" />
-    <Compile Include="Models\Sources\VGCollect.cs" />
-    <Compile Include="Models\Sources\WebSource.cs" />
-    <Compile Include="Models\Sources\Wikipedia.cs" />
+    <Compile Include="Models\Sources\CoverProject\CoverProject.cs" />
+    <Compile Include="Models\Sources\GameFaqs\GameFaqs.cs" />
+    <Compile Include="Models\Sources\GameRankings\GameRankings.cs" />
+    <Compile Include="Models\Sources\HowLongToBeat\HowLongToBeat.cs" />
+    <Compile Include="Models\Sources\PriceCharting\PriceCharting.cs" />
+    <Compile Include="Models\Sources\VGChartz\VGChartz.cs" />
+    <Compile Include="Models\Sources\VGCollect\VGCollect.cs" />
+    <Compile Include="Models\Sources\VGFacts\VGFactsScraper.cs" />
+    <Compile Include="Models\Sources\WebScraper.cs" />
+    <Compile Include="Models\Sources\Wikipedia\Wikipedia.cs" />
+    <Compile Include="Models\Sources\Wikipedia\WikipediaDetail.cs" />
+    <Compile Include="Models\Sources\Wikipedia\WikipediaScraper.cs" />
     <Compile Include="Models\SQLConnector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -152,6 +167,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Models\Sources\GameRankings\Gamerankings dump 2019-12-08.xlsx" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
