@@ -149,6 +149,7 @@
     <Compile Include="Models\Sources\VGChartz\VGChartz.cs" />
     <Compile Include="Models\Sources\VGCollect\VGCollect.cs" />
     <Compile Include="Models\Sources\VGFacts\VGFactsScraper.cs" />
+    <Compile Include="Models\Sources\VGFacts\VGFactsTrivia.cs" />
     <Compile Include="Models\Sources\WebScraper.cs" />
     <Compile Include="Models\Sources\Wikipedia\Wikipedia.cs" />
     <Compile Include="Models\Sources\Wikipedia\WikipediaDetail.cs" />
